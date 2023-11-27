@@ -26,3 +26,6 @@ def format_license(text):
 def read_license_plate(license_plate_crop):
     """ read license plate from image"""
     
+    
+def get_car(license_plate, vehicle_tracker_ids):
+    """ get car details"""
