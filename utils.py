@@ -22,3 +22,7 @@ def format_license(text):
     
 
 
+#  important from the computer vision point of view
+def read_license_plate(license_plate_crop):
+    """ read license plate from image"""
+    
