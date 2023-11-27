@@ -17,3 +17,8 @@ def license_complies_format(text):
         and new plates ()"""
     
     
+def format_license(text):
+    """ format license to the required format"""
+    
+
+
