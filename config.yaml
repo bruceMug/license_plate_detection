@@ -1,0 +1,7 @@
+path: '/content/drive/MyDrive/number_plates_images/train'
+train: '/images/train'
+val: '/images/train'
+
+#classes
+names:
+  0: 'lplate'
