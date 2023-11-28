@@ -24,7 +24,17 @@ def format_license(text):
 
 #  important from the computer vision point of view
 def read_license_plate(license_plate_crop):
-    """ read license plate from image"""
+    """ read license plate from the given cropped image
+    Args:
+        license_plate_crop: cropped image containing the license plate
+        
+    Returns:
+        tuple containing the formatted license plate text and the confidence score
+
+    """
+    
+    return None, None
+    
     
     
 def get_car(license_plate, vehicle_tracker_ids):
