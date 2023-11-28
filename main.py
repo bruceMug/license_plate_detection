@@ -2,7 +2,7 @@
 from ultralytics import YOLO
 import cv2
 from sort.sort import *
-from utils import get_car
+from utils import get_car, read_license_plate
 
 
 mot_tracker = Sort()  # create instance of the SORT tracker
@@ -60,7 +60,23 @@ while True:
             """ we have captured all the plates and cars in a given frame and at this point we don't know which plate belongs to which car."""
             xcar1, ycar1, xcar2, ycar2, car_id = get_car(license_plate, track_ids)
             """ the returned car id is unique and will be used to identify the car through out the video"""
-            print(xcar1, ycar1, xcar2, ycar2, car_id)
+            
+            # crop the plates
+            license_plate_crop = frame[ int(y1):int(y2), int(x1):int(x2) ]
+            
+            # process the plate i.e convert to grayscale, threshold, etc
+            license_plate_crop_gray = cv2.cvtColor(license_plate_crop, cv2.COLOR_BGR2GRAY)
+            _, license_plate_crop_thresh = cv2.threshold(license_plate_crop_gray, 64, 255, cv2.THRESH_BINARY_INV)
+            # cv2.threshold(license_plate_crop_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+            
+            # visualize the plate
+            # cv2.imshow('Frame', license_plate_crop_gray)
+            # cv2.imshow('Frame', license_plate_crop_thresh)
+            # cv2.waitKey(0)
+            
+            
+            # read license plate
+            read_license_plate(license_plate_crop_thresh)
         
         
                         
@@ -81,10 +97,6 @@ while True:
         #     break
 
 
-        # assign plate to car
-
-
-        # crop and process the plates
 
 
         # read plates
