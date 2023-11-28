@@ -28,4 +28,14 @@ def read_license_plate(license_plate_crop):
     
     
 def get_car(license_plate, vehicle_tracker_ids):
-    """ get car details"""
+    """ get car details
+    Args:
+        license_plate: receives a license plate containing the coordinates of the license plate (x1, y1, x2, y2)
+        vehicle_tracker_ids: list of vehicle track ids and corresponding coordinates (x1, y1, x2, y2)
+        
+    Returns:
+        tuple containing the vehicle id and the vehicle coordinates
+    
+    """
+    
+    return 0, 0, 0, 0, 0
