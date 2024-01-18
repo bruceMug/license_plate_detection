@@ -100,5 +100,9 @@ def log_output(output):
     if not os.path.isfile(file_path):
         with open(file_path, 'w') as file:
             file.write('Time, License Plate, Frame_number\n')
-    
+            
+    with open(file_path, 'a') as file:
+        file.write(f'{current_time}, {license_plate} , {frame_nmr}\n')
+        # file.write('\n')
+    # pass
     
