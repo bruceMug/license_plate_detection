@@ -97,4 +97,8 @@ def log_output(output):
     formatted_time = current_time.strftime("%Y-%m-%d %H")
     file_path = f'./test_files/log_{formatted_time}.txt'
     
+    if not os.path.isfile(file_path):
+        with open(file_path, 'w') as file:
+            file.write('Time, License Plate, Frame_number\n')
+    
     
