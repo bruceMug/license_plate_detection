@@ -23,3 +23,23 @@ results = {}
 # to track the frame count
 frame_nmr = -1
 
+while True:
+    frame_nmr += 1
+    ret, frame = cap.read()
+    
+    # 
+    if ret and frame_nmr < 50:
+        frame = cv2.resize(frame, (640, 480))
+        # print(frame_nmr)
+        results[frame_nmr] = {}
+        # print(results)
+    
+        # ------------------------------------------------------------------------------vehicles
+        # detect vehicles
+        
+    else:
+        break
+        
+# print(output)
+# save results to file
+# write_csv(output, './results.csv')
