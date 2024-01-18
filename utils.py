@@ -92,5 +92,9 @@ def get_car(license_plate, vehicle_tracker_ids):
 
 def log_output(output):
     """ write output to a txt file """
+    license_plate, frame_nmr = output
+    current_time = datetime.datetime.now()
+    formatted_time = current_time.strftime("%Y-%m-%d %H")
+    file_path = f'./test_files/log_{formatted_time}.txt'
     
     
