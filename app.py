@@ -36,6 +36,9 @@ while True:
     
         # ------------------------------------------------------------------------------vehicles
         # detect vehicles
+        detections = coco_model(frame)[0]  # returns a list of detections
+        detections_ = [] # list of all bounding boxes
+        
         
     else:
         break
