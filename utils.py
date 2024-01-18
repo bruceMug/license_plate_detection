@@ -1,13 +1,15 @@
 import string
 import easyocr
+import csv, os, datetime
 
 reader = easyocr.Reader(['en'], gpu=False)
 
 # mapping characters for character conversion
 
 
-def write_csv(results, output_path):
-    """ write content to csv file"""
+def write_csv(results, frame_nmr, car_id):
+    """ write content to csv file """
+   
     
     
 def license_complies_format(text):
@@ -23,7 +25,7 @@ def format_license(text):
 
 
 #  important from the computer vision point of view
-def read_license_plate(license_plate_crop):
+def read_license_plate(license_plate_thresh):
     """ read license plate from the given cropped image
     Args:
         license_plate_crop: cropped image containing the license plate
@@ -32,8 +34,8 @@ def read_license_plate(license_plate_crop):
         tuple containing the formatted license plate text and the confidence score
 
     """
-    
-    return None, None
+    detections = reader.readtext(license_plate_thresh)
+    return str('UAE 1234'), 0.9
     
     
     
@@ -47,5 +49,25 @@ def get_car(license_plate, vehicle_tracker_ids):
         tuple containing the vehicle id and the vehicle coordinates
     
     """
+    # License Plate => x1, y1, x2, y2, conf, class_id
+    # Vehicle_tracker_ids => x1, y1, x2, y2, track_id
+    x1, y1, x2, y2, l_confidence_score, class_id = license_plate
+    # print(len(vehicle_tracker_ids))
+    # print(vehicle_tracker_ids.tolist()[0])
     
-    return 0, 0, 0, 0, 0
+    found = False
+    for i in range(len(vehicle_tracker_ids)):
+        xcar1, ycar1, xcar2, ycar2, car_id = vehicle_tracker_ids[i]
+        
+        if x1 > xcar1 and y1 > ycar1 and x2 < xcar2 and y2 < ycar2:
+            found = True
+            car_idx = i
+        
+    if found:
+        return vehicle_tracker_ids[car_idx]
+    
+    return -1, -1, -1, -1, -1
+
+
+
+    
