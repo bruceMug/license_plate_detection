@@ -9,7 +9,11 @@ reader = easyocr.Reader(['en'], gpu=False)
 
 def write_csv(results, frame_nmr, car_id):
     """ write content to csv file """
-   
+    current_time = datetime.datetime.now()
+    formatted_time = current_time.strftime("%Y-%m-%d %H")
+    output_path = f'./test_files/results_{formatted_time}.csv'
+    file_exists = os.path.isfile(output_path)
+    
     
     
 def license_complies_format(text):
@@ -67,7 +71,6 @@ def get_car(license_plate, vehicle_tracker_ids):
         return vehicle_tracker_ids[car_idx]
     
     return -1, -1, -1, -1, -1
-
 
 
     
