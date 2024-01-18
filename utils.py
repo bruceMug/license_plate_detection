@@ -14,6 +14,14 @@ def write_csv(results, frame_nmr, car_id):
     output_path = f'./test_files/results_{formatted_time}.csv'
     file_exists = os.path.isfile(output_path)
     
+    with open(output_path, 'a' if file_exists else 'w', newline='') as file:
+        writer = csv.writer(file)
+        header = ["frame_nmr", "car_id", "car_bbox", "license_plate_bbox", "license_plate_text", "bbox_score", "text_score"]
+        
+        if not file_exists:
+            writer.writerow(header)
+        
+        
     
     
 def license_complies_format(text):
@@ -71,6 +79,7 @@ def get_car(license_plate, vehicle_tracker_ids):
         return vehicle_tracker_ids[car_idx]
     
     return -1, -1, -1, -1, -1
+
 
 
     
