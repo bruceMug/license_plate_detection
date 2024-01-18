@@ -49,7 +49,8 @@ while True:
         track_ids = mot_tracker.update(np.asarray(detections_))
         
         output = read_detect_plates(frame, results, frame_nmr, track_ids)
-        
+        # print('Started next frame')
+        # write_csv(output, './results.csv')
     else:
         break
         
