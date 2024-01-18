@@ -90,5 +90,7 @@ def get_car(license_plate, vehicle_tracker_ids):
     return -1, -1, -1, -1, -1
 
 
-
+def log_output(output):
+    """ write output to a txt file """
+    
     
