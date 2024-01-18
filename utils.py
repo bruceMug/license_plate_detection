@@ -21,7 +21,16 @@ def write_csv(results, frame_nmr, car_id):
         if not file_exists:
             writer.writerow(header)
         
-        
+        row_values = [
+            frame_nmr, 
+            car_id, 
+            results[frame_nmr][car_id]['car']['bbox'], 
+            results[frame_nmr][car_id]['license_plate']['bbox'], 
+            results[frame_nmr][car_id]['license_plate']['text'], 
+            results[frame_nmr][car_id]['license_plate']['box_confidence_score'], 
+            results[frame_nmr][car_id]['license_plate']['plate_text_score']
+            ]
+        writer.writerow(row_values)
     
     
 def license_complies_format(text):
