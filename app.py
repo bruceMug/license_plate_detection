@@ -48,6 +48,7 @@ while True:
         # track vehicles
         track_ids = mot_tracker.update(np.asarray(detections_))
         
+        output = read_detect_plates(frame, results, frame_nmr, track_ids)
         
     else:
         break
