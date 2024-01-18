@@ -39,6 +39,12 @@ while True:
         detections = coco_model(frame)[0]  # returns a list of detections
         detections_ = [] # list of all bounding boxes
         
+        for detection in detections.boxes.data.tolist():
+            x1, y1, x2, y2, confidence_score, class_id = detection
+            
+            if int(class_id) in vehicles:
+                detections_.append([x1, y1, x2, y2, confidence_score])
+                
         
     else:
         break
