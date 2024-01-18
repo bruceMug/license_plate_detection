@@ -1,8 +1,10 @@
 # venv
 venv
 
-# video
+# video and test images
 test_one.mp4
+*.jpg
+*.png
 
 # readme
 README.md
@@ -11,7 +13,14 @@ README.md
 yolov8n.pt
 
 # sort
-sort
+sort/
 
 # pycache
 __pycache__
+sort/__pycache__
+
+# code file
+.vscode
+
+# yaml files
+*.yaml
