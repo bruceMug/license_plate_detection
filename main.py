@@ -2,14 +2,14 @@
 from ultralytics import YOLO
 import cv2
 from sort.sort import *
-from utils import get_car, read_license_plate
+from utils import get_car, read_license_plate, write_csv
 
 
 mot_tracker = Sort()  # create instance of the SORT tracker
 
 # load models
 coco_model = YOLO('yolov8n.pt')   # detecting cars
-# license_plate_detector = YOLO('./models/license_plate_detector.pt') # detecting license plates
+license_plate_detector = YOLO('./models/license_plate_detector.pt') # detecting license plates
 
 print('Reading video ...')
 # read frames
@@ -17,6 +17,8 @@ cap = cv2.VideoCapture('./test_one.mp4')
 
 # vehicles of interest
 vehicles = [2, 3, 6, 5, 7]
+
+results = {}
 
 # to track the frame count
 frame_nmr = -1
@@ -26,7 +28,7 @@ while True:
     ret, frame = cap.read()
     
     # 
-    if ret and frame_nmr < 2:
+    if ret and frame_nmr < 10:
         frame = cv2.resize(frame, (640, 480))
     
         # ------------------------------------------------------------------------------vehicles
@@ -47,14 +49,16 @@ while True:
         track_ids = mot_tracker.update(np.asarray(detections_))
         # print(track_ids)
         
-        
         # ------------------------------------------------------------------------------plates
         """ this part is dependent on the model that will be trained """
         # detect license plates
         license_plates = license_plate_detector(frame)[0]
         
+        # print("This is the variable where the model is saved: ", license_plates)
+        # break
+        
         for license_plate in license_plates.boxes.data.tolist():
-            x1, y1, x2, y2, confidence_score, class_id = license_plate
+            x1, y1, x2, y2, l_confidence_score, class_id = license_plate
             
             # assign license plate to given car
             """ we have captured all the plates and cars in a given frame and at this point we don't know which plate belongs to which car."""
@@ -62,7 +66,7 @@ while True:
             """ the returned car id is unique and will be used to identify the car through out the video"""
             
             # crop the plates
-            license_plate_crop = frame[ int(y1):int(y2), int(x1):int(x2) ]
+            license_plate_crop = frame[ int(y1):int(y2), int(x1):int(x2)]
             
             # process the plate i.e convert to grayscale, threshold, etc
             license_plate_crop_gray = cv2.cvtColor(license_plate_crop, cv2.COLOR_BGR2GRAY)
@@ -74,9 +78,19 @@ while True:
             # cv2.imshow('Frame', license_plate_crop_thresh)
             # cv2.waitKey(0)
             
-            
+            break
             # read license plate
-            read_license_plate(license_plate_crop_thresh)
+            license_plate_text, plate_text_conf_score = read_license_plate(license_plate_crop_thresh)
+            
+            if license_plate_text is not None:
+                results[frame_nmr][car_id] = {'car': {'bbox': [xcar1, ycar1, xcar2, ycar2]},
+                                              'license_plate': {'bbox': [x1, y1, x2, y2],
+                                                                'text': license_plate_text,
+                                                                'bbox_score': l_confidence_score,
+                                                                'text_score': plate_text_conf_score}}
+            
+            # write results to csv [log file]
+            
         
         
                         
