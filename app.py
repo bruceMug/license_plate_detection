@@ -45,6 +45,9 @@ while True:
             if int(class_id) in vehicles:
                 detections_.append([x1, y1, x2, y2, confidence_score])
                 
+        # track vehicles
+        track_ids = mot_tracker.update(np.asarray(detections_))
+        
         
     else:
         break
