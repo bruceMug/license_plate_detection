@@ -2,12 +2,9 @@
 venv
 
 # video and test images
-test_one.mp4
+*.mp4
 *.jpg
 *.png
-
-# readme
-README.md
 
 # models
 models/
