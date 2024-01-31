@@ -55,6 +55,7 @@ def read_license_plate(license_plate_thresh):
         tuple containing the formatted license plate text and the confidence score
 
     """
+    
     detections = reader.readtext(license_plate_thresh)
     return str('UAE 1234'), 0.9
     
