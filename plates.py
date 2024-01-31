@@ -7,10 +7,6 @@ from track_ids import track_ids
 # load the trained model
 license_plate_detector = YOLO('./models/license_plate_detector.pt')
 
-# read image/frame using cv2
-# frame = cv2.imread('./test_two.jpg')
-# frame = cv2.resize(frame, (640, 480))
-
 def read_detect_plates(frame, results, frame_nmr, track_ids):
     # results[frame_nmr] = {}
     
@@ -27,15 +23,10 @@ def read_detect_plates(frame, results, frame_nmr, track_ids):
         where the class_id is the class of the detected object i.e car, truck, plane etc
     """
 
-    # print(license_plates.boxes.data.tolist())
-
 
     # loop over the detected license plates
     for license_plate in license_plates.boxes.data.tolist():
         x1, y1, x2, y2, conf, class_id = license_plate
-
-        # draw bounding box
-        # cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 1)
 
         """ 
         At this point, we have a list of plates and vehicles and don't know what belongs to what.
@@ -53,11 +44,10 @@ def read_detect_plates(frame, results, frame_nmr, track_ids):
 
         # read plate using ocr
         license_plate_text, plate_conf_score = read_license_plate(license_plate_thresh)
-
         # check if text /plate is valid
         if license_plate_text is not None:
             # log plate details
-            log_output([license_plate_text, frame_nmr])
+            # log_output([license_plate_text, frame_nmr])
             
             # store results in a dictionary
             results[frame_nmr][car_id] = {'car': {'bbox': [xcar1, ycar1, xcar2, ycar2]},
@@ -65,10 +55,15 @@ def read_detect_plates(frame, results, frame_nmr, track_ids):
                                                             'text': license_plate_text,
                                                             'box_confidence_score': conf,
                                                             'plate_text_score': plate_conf_score}}
+            print(license_plate_text)
             
             # print(frame_nmr)
             # print(car_id)
-            write_csv(results, frame_nmr, car_id)
+            # write_csv(results, frame_nmr, car_id)
+        else:
+            print("I reach here -")
+            pass
         # print('Onto another license plate -->')
+        # print('I reach here -')
     
-    return results
+    # return results
