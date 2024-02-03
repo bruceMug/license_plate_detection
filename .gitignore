@@ -3,11 +3,11 @@ venv
 
 # video and test images
 *.mp4
-*.jpg
-*.png
+# *.jpg
+# *.png
 
 # models
-models/
+# models/
 
 # sort
 sort
