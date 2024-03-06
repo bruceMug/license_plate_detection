@@ -1,8 +1,0 @@
-path: "/content/drive/MyDrive/number_plates_images"
-train: /content/drive/MyDrive/number_plates_images/images/train/images
-val: /content/drive/MyDrive/number_plates_images/images/valid/images
-test: /content/drive/MyDrive/number_plates_images/images/test/images
-
-#classes
-names:
-  0: "lplate"
