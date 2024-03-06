@@ -24,3 +24,9 @@ config.yaml
 
 # test files
 test_files
+
+# python files
+visualize.py
+add_missing_data.py
+ocr.py
+main.py
