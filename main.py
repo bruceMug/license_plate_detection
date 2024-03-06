@@ -40,9 +40,10 @@ if __name__ == "__main__":
     # get all video details
     vd.get_video_details(args['source'])
 
-    try:
-        app_run.main(args['source'], args['dest'])
-    except:
-        print('Did nothing.')
-        pass
+    # try:
+    app_run.main(args['source'], args['dest'])
+    # except:
+    # print('Did nothing.')
+    # pass
+
     print('Processing video completed.')
